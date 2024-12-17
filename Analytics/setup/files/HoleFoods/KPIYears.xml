@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="HoleFoods.KPIYears">
+<Description>
+This KPI class provides the list of values for the 
+Years pivot variable of the HoleFoods cube.</Description>
+<Super>%DeepSee.KPI</Super>
+<TimeCreated>63173,38927.407251</TimeCreated>
+
+<Parameter name="DOMAIN">
+<Default>PATIENTSAMPLE</Default>
+</Parameter>
+
+<XData name="KPI">
+<XMLNamespace>http://www.intersystems.com/deepsee/kpi</XMLNamespace>
+<Data><![CDATA[
+<kpi name="HoleFoodsYears" 
+displayName="HoleFoodsYears"  
+sourceType="mdx"
+mdx="SELECT [DateOfSale].[Actual].[YearSold].CURRENTMEMBER.Properties(&quot;Key&quot;) ON 0,NON EMPTY [DateOfSale].[Actual].[YearSold].Members ON 1 FROM [HOLEFOODS]" 
+>
+
+<property name="Value" 
+displayName="Value" 
+ columnNo="1" />
+
+</kpi>
+]]></Data>
+</XData>
+</Class>
+</Export>

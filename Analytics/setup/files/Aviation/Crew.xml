@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="Aviation.Crew">
+<Description><![CDATA[
+ <p>This class represents the details on crew involved in events registered by the 
+ <a href="http://www.ntsb.gov/" target="_blank">National Transportation Safety Board</a>.</p>
+ <p><b>Note on the data</b>: The dataset provided in this sample demo is only a lightweight
+ subset of the full NTSB dataset, which is available from 
+ <a href="http://www.ntsb.gov/" target="_blank">http://www.ntsb.gov</a>. This data is supplied
+ here for demonstration purposes only and neither intended nor warranted to be accurate.<br/>
+ 	Courtesy: National Transportation Safety Board</p>]]></Description>
+<Super>%Persistent</Super>
+<TimeCreated>62914,57485.629265</TimeCreated>
+
+<Property name="EventId">
+<Type>%String</Type>
+</Property>
+
+<UDLText name="T">
+<Content><![CDATA[
+// server 
+
+]]></Content>
+</UDLText>
+
+<Property name="AircraftKey">
+<Type>%Library.Integer</Type>
+</Property>
+
+<Property name="CrewNumber">
+<Type>%Library.Integer</Type>
+</Property>
+
+<Property name="Aircraft">
+<Type>Aviation.Aircraft</Type>
+<Cardinality>parent</Cardinality>
+<Inverse>Crew</Inverse>
+<Relationship>1</Relationship>
+</Property>
+
+<Index name="PKINDEX">
+<PrimaryKey>1</PrimaryKey>
+<Properties>EventId,AircraftKey,CrewNumber</Properties>
+<Unique>1</Unique>
+</Index>
+
+<Property name="Age">
+<Type>%Integer</Type>
+</Property>
+
+<Property name="Category">
+<Type>%String</Type>
+<Parameter name="MAXLEN" value="20"/>
+</Property>
+
+<Property name="Injury">
+<Type>%String</Type>
+<Parameter name="MAXLEN" value="10"/>
+</Property>
+
+<Property name="Sex">
+<Type>%String</Type>
+<Parameter name="MAXLEN" value="1"/>
+</Property>
+
+<Property name="ToxicologyTestPerformed">
+<Type>%String</Type>
+<Parameter name="MAXLEN" value="1"/>
+</Property>
+
+<Property name="MedicalCertificationDate">
+<Type>%Library.TimeStamp</Type>
+</Property>
+
+<Property name="MedicalCertification">
+<Type>%String</Type>
+<Parameter name="MAXLEN" value="20"/>
+</Property>
+
+<Property name="MedicalCertificationValid">
+<Type>%String</Type>
+<Parameter name="MAXLEN" value="50"/>
+</Property>
+
+<Property name="Seat">
+<Type>%String</Type>
+<Parameter name="MAXLEN" value="10"/>
+</Property>
+
+<Property name="SeatbeltUsed">
+<Type>%String</Type>
+<Parameter name="MAXLEN" value="1"/>
+</Property>
+
+<Property name="ShoulderHarnessUsed">
+<Type>%String</Type>
+<Parameter name="MAXLEN" value="1"/>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>{%%PARENT}("Crew")</DataLocation>
+<DefaultData>CrewDefaultData</DefaultData>
+<IdLocation>^Aviation.AircraftC("Crew")</IdLocation>
+<IndexLocation>^Aviation.CrewI</IndexLocation>
+<StreamLocation>^Aviation.CrewS</StreamLocation>
+<ExtentSize>100000</ExtentSize>
+<Data name="CrewDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>EventId</Value>
+</Value>
+<Value name="3">
+<Value>AircraftKey</Value>
+</Value>
+<Value name="4">
+<Value>CrewNumber</Value>
+</Value>
+<Value name="5">
+<Value>Age</Value>
+</Value>
+<Value name="6">
+<Value>Category</Value>
+</Value>
+<Value name="7">
+<Value>Injury</Value>
+</Value>
+<Value name="8">
+<Value>Sex</Value>
+</Value>
+<Value name="9">
+<Value>ToxicologyTestPerformed</Value>
+</Value>
+<Value name="10">
+<Value>MedicalCertificationDate</Value>
+</Value>
+<Value name="11">
+<Value>MedicalCertification</Value>
+</Value>
+<Value name="12">
+<Value>MedicalCertificationValid</Value>
+</Value>
+<Value name="13">
+<Value>Seat</Value>
+</Value>
+<Value name="14">
+<Value>SeatbeltUsed</Value>
+</Value>
+<Value name="15">
+<Value>ShoulderHarnessUsed</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+</Export>

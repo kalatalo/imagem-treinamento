@@ -1,0 +1,32 @@
+
+Some Code Snippets for Embedded Analytics Exercises.
+
+
+
+#######  MDX for Analyzer Part Two: Advanced Analyzer and Listing Group Manager ########################
+
+%KPI("%DeepSee.Distinct", "DISTINCT",1,"%level", "[Outlet].[H1].[City]","%CONTEXT")
+
+
+
+####### MDX for Dashboards Part Two: Scorecards and Meters Exercise ########################
+
+%MDX("SELECT NON EMPTY NONEMPTYCROSSJOIN(%LIST([DATEOFSALE].[MonthSold].Members),[Measures].[Amount Sold]) ON 0 FROM [HOLEFOODS]","%CONTEXT","rows|filters")
+
+
+
+#######  ObjectScript Modeling Part One: Creating Cubes ########################
+
+%source.Outlet.Country.Name_": "_%source.Outlet.City
+
+
+#######  Terminal Command Modeling Part Two: Cube Relationships ########################
+
+Use the following command to change to the Training namespace
+
+ZN "Training"
+
+Use the following command to execute %Analyze
+
+Do ##class(%DeepSee.Utils).%Analyze("HoleFoodsTransactionCube","fci")
+

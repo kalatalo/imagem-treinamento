@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="24" zv="Cache for Windows (x86-64) 2011.1 (Build 351U)" ts="2010-12-31 10:21:46">
+<Class name="HoleFoods.Transaction">
+<Description><![CDATA[
+Instances of this class represent specific transactions within
+the HoleFoods demo.<br/>
+This table combines both "actual" data and "budget" data so that the sample cube
+can show comparisons between the two.<br/>
+Actual records will have a true value for the Actual property.<br/>
+Budget records will have a false value for the Actual property. The budget value will
+be stored in the TargetAmount property. Budget values are set for each city, product, and
+month (using the first day of the month).]]></Description>
+<SqlTableName>SalesTransaction</SqlTableName>
+<Super>%Persistent</Super>
+<TimeChanged>62076,58912.417599</TimeChanged>
+<TimeCreated>61079,51781.861768</TimeCreated>
+
+<Parameter name="DSTIME">
+<Description>
+Track changes to this class.</Description>
+<Default>auto</Default>
+</Parameter>
+
+<Index name="DateOfSale">
+<Properties>DateOfSale</Properties>
+</Index>
+
+<Index name="Product">
+<Type>bitmap</Type>
+<Properties>Product</Properties>
+</Index>
+
+<Index name="Outlet">
+<Type>bitmap</Type>
+<Properties>Outlet</Properties>
+</Index>
+
+<Property name="Actual">
+<Description>
+If true, this represents an actual sale
+otherwise this represents a sales target.</Description>
+<Type>%Boolean</Type>
+</Property>
+
+<Property name="DateOfSale">
+<Description>
+Date of this sale.</Description>
+<Type>%Date</Type>
+</Property>
+
+<Property name="Product">
+<Description>
+Product sold.</Description>
+<Type>Product</Type>
+</Property>
+
+<Property name="Outlet">
+<Description>
+Store or other outlet in which the sale occurred.</Description>
+<Type>Outlet</Type>
+</Property>
+
+<Property name="Channel">
+<Description>
+Channel product was sold through: "Retail" or "Online".</Description>
+<Type>%String</Type>
+<Parameter name="DISPLAYLIST" value=",Retail,Online"/>
+<Parameter name="VALUELIST" value=",1,2"/>
+</Property>
+
+<Property name="AmountOfSale">
+<Description>
+Actual amount of this sale.</Description>
+<Type>%Numeric</Type>
+<Parameter name="SCALE" value="2"/>
+</Property>
+
+<Property name="UnitsSold">
+<Description>
+Units sold.</Description>
+<Type>%Integer</Type>
+</Property>
+
+<Property name="Discount">
+<Description>
+Discount amount.</Description>
+<Type>%Numeric</Type>
+<Parameter name="SCALE" value="2"/>
+</Property>
+
+<Property name="TargetAmount">
+<Description>
+For budget items, this is the target value for a period,region, and product.</Description>
+<Type>%Numeric</Type>
+<Parameter name="SCALE" value="2"/>
+</Property>
+
+<Property name="Comment">
+<Description>
+Customer comment on this transaction (if any).</Description>
+<Type>%String</Type>
+<Parameter name="MAXLEN" value="500"/>
+</Property>
+
+<Property name="ZipCode">
+<Description>
+US Zipcode of customer (if provided).</Description>
+<Type>%String</Type>
+<Parameter name="MAXLEN" value="25"/>
+</Property>
+
+<Property name="Latitude">
+<Description>
+Latitude of customer (determined from zip code).</Description>
+<Type>%Double</Type>
+</Property>
+
+<Property name="Longitude">
+<Description>
+Longitude of customer (determined from zip code).</Description>
+<Type>%Double</Type>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^HoleFoods.TransactionD</DataLocation>
+<DefaultData>TransactionDefaultData</DefaultData>
+<IdLocation>^HoleFoods.TransactionD</IdLocation>
+<IndexLocation>^HoleFoods.TransactionI</IndexLocation>
+<StreamLocation>^HoleFoods.TransactionS</StreamLocation>
+<Data name="TransactionDefaultData">
+<Structure>listnode</Structure>
+<Subscript/>
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>Actual</Value>
+</Value>
+<Value name="3">
+<Value>DateOfSale</Value>
+</Value>
+<Value name="4">
+<Value>Product</Value>
+</Value>
+<Value name="5">
+<Value>Outlet</Value>
+</Value>
+<Value name="6">
+<Value>Channel</Value>
+</Value>
+<Value name="7">
+<Value>AmountOfSale</Value>
+</Value>
+<Value name="8">
+<Value>UnitsSold</Value>
+</Value>
+<Value name="9">
+<Value>Discount</Value>
+</Value>
+<Value name="10">
+<Value>TargetAmount</Value>
+</Value>
+<Value name="11">
+<Value>Comment</Value>
+</Value>
+<Value name="12">
+<Value>ZipCode</Value>
+</Value>
+<Value name="13">
+<Value>Latitude</Value>
+</Value>
+<Value name="14">
+<Value>Longitude</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+</Export>

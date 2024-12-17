@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="HoleFoods.SampleListingGroup">
+<Description><![CDATA[
+This class defines a listing group for the DeepSee HoleFoods sample. 
+To see the definition of this listing group, use the DeepSee > Tools > Listing Group Manager menu option
+or open this class in Studio.]]></Description>
+<Super>%DeepSee.ListingGroupDefinition</Super>
+<TimeCreated>63616,57566.892741</TimeCreated>
+<DependsOn>HoleFoods.Cube,HoleFoods.SubjectAreaAsia</DependsOn>
+
+<Parameter name="XMLTYPE">
+<Description>
+Need this because we have another listing group class with the same short class name.
+We use the XMLTYPE parameter to make sure these two classes project differently to XML.</Description>
+<Default>HoleFoodsSampleListingGroup</Default>
+</Parameter>
+
+<Parameter name="DOMAIN">
+<Default>HOLEFOODS</Default>
+</Parameter>
+
+<XData name="Listings">
+<Description>
+This XData section provides the definition of the cube.</Description>
+<XMLNamespace>http://www.intersystems.com/deepsee/listinggroup</XMLNamespace>
+<Data><![CDATA[
+<listingGroup name="Additional Listing for HoleFoods Sample" 
+      targetCubes="Holefoods,HoleFoods Asia" >
+
+<listing name="Another Sample Listing by Date" 
+fieldList='%ID As "ID #",DateOfSale As "Sale Date"' 
+ orderBy="DateOfSale,%ID"  />
+
+<listing name="Another Sample Listing with Customer Info" 
+listingType="map" 
+ fieldList='%ID,Outlet->City "Store Location",Outlet->Country->Name Country,Product->Name Product,ZipCode "Customer ZipCode",Latitude,Longitude'/>
+
+  </listingGroup>
+]]></Data>
+</XData>
+</Class>
+</Export>

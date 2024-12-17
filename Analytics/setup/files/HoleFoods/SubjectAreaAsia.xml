@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2011.2 (Build 312U)" ts="2012-04-29 17:35:18">
+<Class name="HoleFoods.SubjectAreaAsia">
+<Description>
+Example of a DeepSee Subject Area.
+This limits the data from the HOLEFOODS cube to data from ASIA only.</Description>
+<ProcedureBlock>1</ProcedureBlock>
+<Super>%DeepSee.SubjectArea</Super>
+<TimeChanged>62575,55943.64001</TimeChanged>
+<TimeCreated>62396,79894.878974</TimeCreated>
+<DependsOn>HoleFoods.Cube</DependsOn>
+
+<Parameter name="DOMAIN">
+</Parameter>
+
+<XData name="SubjectArea">
+<Description>
+SubjectArea definition from Architect.</Description>
+<XMLNamespace>http://www.intersystems.com/deepsee/subjectarea</XMLNamespace>
+<Data><![CDATA[
+<subjectArea xmlns="http://www.intersystems.com/deepsee/subjectarea" name="HoleFoods Asia" caption="HoleFoods Asia" disabled="false" baseCube="HoleFoods" filterSpec="[OUTLET].[H1].&amp;[ASIA]">
+</subjectArea>
+]]></Data>
+</XData>
+</Class>
+</Export>

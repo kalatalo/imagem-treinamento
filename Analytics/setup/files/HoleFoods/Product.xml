@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="HoleFoods.Product">
+<Description>
+This represents a Product within the HoleFoods demo.</Description>
+<Super>%Persistent</Super>
+<TimeCreated>61079,51315.12609</TimeCreated>
+
+<Index name="KEY">
+<IdKey>1</IdKey>
+<Properties>SKU</Properties>
+</Index>
+
+<Property name="Category">
+<Description>
+Category of this product.</Description>
+<Type>%String</Type>
+<Parameter name="MAXLEN" value="100"/>
+</Property>
+
+<Property name="Name">
+<Description>
+Name of this product.</Description>
+<Type>%String</Type>
+<Parameter name="MAXLEN" value="120"/>
+</Property>
+
+<Property name="SKU">
+<Description>
+SKU for this product.</Description>
+<Type>%String</Type>
+<Parameter name="MAXLEN" value="22"/>
+</Property>
+
+<Property name="Price">
+<Description>
+List price for this product.</Description>
+<Type>%Numeric</Type>
+<Parameter name="MINVAL" value="0"/>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^HoleFoods.ProductD</DataLocation>
+<DefaultData>ProductDefaultData</DefaultData>
+<IdLocation>^HoleFoods.ProductD</IdLocation>
+<IndexLocation>^HoleFoods.ProductI</IndexLocation>
+<StreamLocation>^HoleFoods.ProductS</StreamLocation>
+<Data name="ProductDefaultData">
+<Structure>listnode</Structure>
+<Subscript/>
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>Category</Value>
+</Value>
+<Value name="3">
+<Value>Name</Value>
+</Value>
+<Value name="4">
+<Value>Price</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+</Export>

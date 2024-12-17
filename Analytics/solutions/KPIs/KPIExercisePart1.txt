@@ -1,0 +1,52 @@
+The following code is the XML for the KPI's properties, filter, and action, for KPI Exercise part 1. Paste it between the <kpi></kpi>
+tags.
+
+<property name="Product" disabled="false" displayName="Product" columnNo="1"/>
+<property name="SKU" displayName="SKU" columnNo="2"/>
+<property name="Price" displayName="Price" columnNo="3"/>
+<property name="Amount Sold" displayName="Amount Sold" columnNo="4"/>
+<property name="Amount Targeted" displayName="Amount Targeted" columnNo="5"/>
+<filter name="Region" sql="" displayName="Region" filterProperty=""/>
+<action name="Show Product" displayName="Show Product"/>
+
+
+########################################################
+
+
+The following code is the method stub for the %OnGetSQL() method for KPI Exercise part 1. Paste it into the KPI class definition if it is not
+already there.
+
+/// Return an SQL statement to execute.
+Method %OnGetSQL(ByRef pSQL As %String) As %Status
+{
+
+
+ Return $$$OK
+
+}
+
+
+########################################################
+
+The following code is the method body for the %OnGetSQL() method for KPI Exercise part 1. Paste into
+the method body.
+
+
+Set pSQL="Select TOP 1000 Product->Name Product,"
+		_" Product ProductCode,Product->Price Price,"
+		_" SUM(AmountOfSale) Amount, SUM(TargetAmount)"
+		_" Targeted From HoleFoods.SalesTransaction Group By"
+		_" Product"
+	Return $$$OK
+
+########################################################
+
+The following comment contains a link to the KPI test page. Paste the link together with the comment into
+the KPI class. Paste it anywhere inside the class except inside the XData block.
+
+/*
+
+Link to KPI test page: http://localhost/training/csp/training/Training.Analytics.SQLBasedKPI.cls
+
+*/
+

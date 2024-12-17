@@ -1,0 +1,10 @@
+The below code is the method body for the %OnDashboardAction() method for KPI Exercise part 3. Paste into
+the method body before the Quit statement.
+
+########################################################
+
+If pAction="Show Product"
+	{
+		Set value = $ZStrip(pContext.currValue,"<>W")
+		Set pContext.command = "popup:HoleFoodsDisplay.CSP?Product="_value_";refresh"
+	}

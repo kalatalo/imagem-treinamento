@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="Training.Analytics.InstallerUtils">
+<Description>
+Utility class for the installer manifest.
+Should be exported to /setup/files/installerutils.xml</Description>
+
+<Method name="DisableJournaling">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>DBdir:%String</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+ Try {
+ New $NAMESPACE
+ Set $NAMESPACE = "%SYS"
+ Set DBdirNormalized = ##class(%File).NormalizeDirectory(DBdir)
+ Set db = ##class(SYS.Database).%OpenId(DBdirNormalized)
+ Set db.GlobalJournalState = 2
+ Set st = db.%Save()
+ $$$ThrowOnError(st)
+ Return $$$OK
+ }
+ Catch ex {
+ Return ex.AsStatus()
+ }
+]]></Implementation>
+</Method>
+
+<Method name="EnableAnalytics">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>namespace:%String</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	 
+ Try {
+	 New $NAMESPACE
+	 Set $NAMESPACE = "%SYS"
+	 Do EnableDeepSee^%SYS.cspServer("/csp/"_$zconvert(namespace,"L")_"/")
+	 Do EnableIKnow^%SYS.cspServer("/csp/"_$zconvert(namespace,"L")_"/")
+	 Set webappid = "/csp/"_$zconvert(namespace,"L")
+	 
+	 //Can't compile the following sql until in %SYS namespace
+	 #Include %occStatus
+	 #SQLCompile Mode=Deferred
+	 &SQL(Update security.applications 
+	 	  Set DeepSeeEnabled = 1, 
+	 	  iKnowEnabled = 1 
+	 	  Where id = :webappid)
+	 if SQLCODE {
+	 	Set msg = "Embedded SQL failed to update the security.applications table SQLCODE: "_SQLCODE_" msg: "_%msg
+	 	Set st = $$$ERROR($$$GeneralError, msg)
+	 	$$$ThrowStatus(st)
+	}
+	Return $$$OK
+	}
+ Catch ex {
+ 	Return ex.AsStatus()
+	}
+]]></Implementation>
+</Method>
+
+<Method name="GrantSQL">
+<ClassMethod>1</ClassMethod>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+ Try {
+ 	do $system.Security.Login("SuperUser","SYS")
+	#SQLCompile Mode=Deferred
+	&sql(Grant Select on SCHEMA HoleFoods to SQLpriv)
+	&sql(Grant Select on SCHEMA HoleFoods_Cube to SQLpriv)
+	&sql(Grant Select on Aviation.Event to SQLpriv)
+	if '(SQLCODE = 0) && '(SQLCODE = 100) {
+	 	Set msg = "Embedded SQL failed to grant SQL permissions. SQLCODE: "_SQLCODE_" msg: "_%msg
+	 	Set st = $$$ERROR($$$GeneralError, msg)
+	 	$$$ThrowStatus(st)
+	 	}
+	Return $$$OK
+	 }
+ Catch ex {
+ 	Return ex.AsStatus()
+ 	}
+]]></Implementation>
+</Method>
+</Class>
+</Export>

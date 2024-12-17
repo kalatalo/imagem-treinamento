@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="IRIS" version="26" zv="IRIS for Windows (x86-64) 2019.1 (Build 510_4_19056U)" ts="2019-10-29 15:02:01">
+<Class name="Training.Analytics.Movie">
+<Super>%Persistent,%XML.Adaptor</Super>
+<TimeChanged>65311,57169.365684</TimeChanged>
+<TimeCreated>65265,39655.863582</TimeCreated>
+
+<Parameter name="DSTIME">
+<Default>AUTO</Default>
+</Parameter>
+
+<Property name="Name">
+<Type>%String</Type>
+<Parameter name="MAXLEN" value="100"/>
+</Property>
+
+<Property name="ReleaseDate">
+<Type>%Date</Type>
+</Property>
+
+<Property name="Genre">
+<Type>%String</Type>
+</Property>
+
+<Property name="Director">
+<Type>%String</Type>
+</Property>
+
+<Property name="Plot">
+<Type>%Stream.GlobalCharacter</Type>
+</Property>
+
+<Property name="Rating">
+<Type>%Numeric</Type>
+</Property>
+
+<Method name="AddPlot">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>dir:%String="c:\Analytics\text\Movies\"</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	Set tSC=$$$OK
+	Try {
+		Set rs = ##class(%ResultSet).%New("Training.Analytics.Movie:Extent")
+		Set tSC = rs.Execute()
+		While rs.Next()
+		{
+			Set id= rs.Get("ID")
+			Set movie = ##class(Training.Analytics.Movie).%OpenId(id)
+			Set fileName = dir_movie.Name_".txt"
+			Set file = ##class(%File).%New(fileName)
+			Do file.Open("RU")
+			write !,fileName
+			
+			Set tSC=movie.Plot.CopyFrom(file) 
+			Set tSC=movie.%Save()
+				
+		}
+		
+	}
+	
+	
+	Catch ex {
+		
+		Set tSC = ex.AsStatus()
+		
+	}
+	
+	Quit tSC
+]]></Implementation>
+</Method>
+
+<Method name="ExportAllToFile">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>file:%String="C:\Analytics\text\moviedata.xml"</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	set tSC=$$$OK
+	Set count=0
+	try {
+		
+		Set rs = ##class(%ResultSet).%New("Training.Analytics.Movie:Extent")
+		Set tSC = rs.Execute()
+		$$$ThrowOnError(tSC)
+		Set writer=##class(%XML.Writer).%New()
+		Do writer.OutputToFile(file)
+		Do writer.RootElement("Movies")
+		Set writer.Indent=1
+		While (rs.Next()){
+			
+			Set obj=##class(Training.Analytics.Movie).%OpenId(rs.Get("ID"))
+			Set tSC=writer.Object(obj,"Movie")
+			$$$ThrowOnError(tSC)
+			Set count=count+1
+			//Quit:count=50
+			
+		}
+		Do writer.EndRootElement()
+	}
+	
+	catch ex {
+		
+		Set tSC=ex.AsStatus()
+		CLOSE file
+		
+	}
+	Write count_" movies exported"
+	Quit tSC
+]]></Implementation>
+</Method>
+
+<Method name="LoadData">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>file:%String="c:\Analytics\text\moviedata.xml"</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+
+	Set tSC=$$$OK
+	Set count=0
+		try{	
+		Set reader=##class(%XML.Reader).%New()
+		Set tSC=reader.OpenFile(file)
+		$$$ThrowOnError(tSC)
+	
+		Do reader.Correlate("Movie","Training.Analytics.Movie")
+	
+		While (reader.Next(.object,.status)){
+	 		set tSC=object.%Save()
+	 		$$$ThrowOnError(tSC)
+	 		Set count=count+1 
+		}
+	}
+	
+	catch ex {
+		
+		Set tSC=ex.AsStatus()
+		CLOSE file
+		
+	}
+	Write count_" movies imported"
+	Quit tSC
+]]></Implementation>
+</Method>
+
+<Storage name="Default">
+<Type>%Storage.Persistent</Type>
+<DataLocation>^Training.Analytics.MovieD</DataLocation>
+<DefaultData>MovieDefaultData</DefaultData>
+<IdLocation>^Training.Analytics.MovieD</IdLocation>
+<IndexLocation>^Training.Analytics.MovieI</IndexLocation>
+<StreamLocation>^Training.Analytics.MovieS</StreamLocation>
+<ExtentSize>100000</ExtentSize>
+<Data name="MovieDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>Name</Value>
+</Value>
+<Value name="3">
+<Value>ReleaseDate</Value>
+</Value>
+<Value name="4">
+<Value>Genre</Value>
+</Value>
+<Value name="5">
+<Value>Director</Value>
+</Value>
+<Value name="6">
+<Value>Plot</Value>
+</Value>
+<Value name="7">
+<Value>Rating</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+</Export>

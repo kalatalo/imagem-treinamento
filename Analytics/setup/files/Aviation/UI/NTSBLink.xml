@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="Aviation.UI.NTSBLink">
+<Super>%ZEN.Component.page</Super>
+<TimeCreated>62599,40091.238859</TimeCreated>
+
+<XData name="Contents">
+<XMLNamespace>http://www.intersystems.com/zen</XMLNamespace>
+<Data><![CDATA[
+<page xmlns="http://www.intersystems.com/zen" title="Forwarding to original NTSB report..." enclosingStyle="padding: 20px;">
+<html id="htmlRedirect" OnDrawContent="DrawRedirect" />
+</page>
+]]></Data>
+</XData>
+
+<Method name="DrawRedirect">
+<FormalSpec>pSeed:%String</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	set tSC = $$$OK
+	try {
+		set tID = $g(%request.Data("ID",1))
+		if (tID="") {
+			write "<p>No event ID specified</p>"
+			quit
+		} elseif $f(tID,",") {
+			set tID = $p(tID,",",1)
+			write "<p>Multiple tIDs specified, only the first one will be used (""",tID,""")"
+		}
+		
+		set tEvent = ##class(Aviation.Event).PKINDEXOpen(tID)
+		if (tEvent="") {
+			write "<p>Unknown event ID: ",tID," </p>"
+			quit
+		}
+		
+		set tURL = "http://dms.ntsb.gov/aviation/GenPDF.aspx?id="_tEvent.NTSBId_"&rpt=fa"
+		
+		&html<<p>Redirecting to NTSB.gov...</p><p>&nbsp;Please note some the NTSB report server might not always be available.</p>>
+		write "<script language=""JavaScript"" type=""text/javascript"">location.href='"_tURL_"';</script>"
+		
+	} catch (ex) {
+		set tSC = ex.AsStatus()
+	}
+	quit tSC
+]]></Implementation>
+</Method>
+</Class>
+</Export>

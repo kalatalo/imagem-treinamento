@@ -1,0 +1,549 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="Aviation.Aircraft">
+<Description><![CDATA[
+ <p>This class represents the details on aircraft involved in events registered by the 
+ <a href="http://www.ntsb.gov/" target="_blank">National Transportation Safety Board</a>.</p>
+ <p><b>Note on the data</b>: The dataset provided in this sample demo is only a lightweight
+ subset of the full NTSB dataset, which is available from 
+ <a href="http://www.ntsb.gov/" target="_blank">http://www.ntsb.gov</a>. This data is supplied
+ here for demonstration purposes only and neither intended nor warranted to be accurate.<br/>
+ 	Courtesy: National Transportation Safety Board</p>]]></Description>
+<Super>%Persistent</Super>
+<TimeCreated>62494,55275.822588</TimeCreated>
+
+<Property name="server">
+<Type>%Status</Type>
+</Property>
+
+<UDLText name="T">
+<Content><![CDATA[
+// server
+
+]]></Content>
+</UDLText>
+
+<Property name="EventId">
+<Type>%String</Type>
+</Property>
+
+<Property name="AircraftKey">
+<Type>%Library.Integer</Type>
+</Property>
+
+<Property name="Event">
+<Type>Aviation.Event</Type>
+<Cardinality>parent</Cardinality>
+<Inverse>Aircraft</Inverse>
+<Relationship>1</Relationship>
+</Property>
+
+<Property name="Crew">
+<Type>Aviation.Crew</Type>
+<Cardinality>children</Cardinality>
+<Inverse>Aircraft</Inverse>
+<Relationship>1</Relationship>
+</Property>
+
+<Property name="RegistrationNumber">
+<Type>%Library.String</Type>
+<Parameter name="MAXLEN" value="11"/>
+</Property>
+
+<Property name="Missing">
+<Type>%Library.String</Type>
+<Parameter name="MAXLEN" value="1"/>
+</Property>
+
+<Property name="FlightPlan">
+<Type>%Library.String</Type>
+<Parameter name="MAXLEN" value="20"/>
+</Property>
+
+<Property name="FlightPlanActivated">
+<Type>%Library.String</Type>
+<Parameter name="MAXLEN" value="1"/>
+</Property>
+
+<Property name="Damage">
+<Type>%Library.String</Type>
+<Parameter name="MAXLEN" value="20"/>
+</Property>
+
+<Property name="AccidentFire">
+<Type>%Library.String</Type>
+<Parameter name="MAXLEN" value="20"/>
+</Property>
+
+<Property name="AccidentExplosion">
+<Type>%Library.String</Type>
+<Parameter name="MAXLEN" value="20"/>
+</Property>
+
+<Property name="AircraftManufacturer">
+<Type>%Library.String</Type>
+<Parameter name="MAXLEN" value="30"/>
+</Property>
+
+<Property name="AircraftModel">
+<Type>%Library.String</Type>
+<Parameter name="MAXLEN" value="20"/>
+</Property>
+
+<Property name="AircraftSeries">
+<Type>%Library.String</Type>
+<Parameter name="MAXLEN" value="10"/>
+</Property>
+
+<Property name="AircraftSerialNo">
+<Type>%Library.String</Type>
+<Parameter name="MAXLEN" value="20"/>
+</Property>
+
+<Property name="AircraftCertMaxGrossWeight">
+<Type>%Library.Integer</Type>
+</Property>
+
+<Property name="AircraftCategory">
+<Type>%Library.String</Type>
+<Parameter name="MAXLEN" value="20"/>
+</Property>
+
+<Property name="AircraftRegistrationClass">
+<Type>%Library.String</Type>
+<Parameter name="MAXLEN" value="50"/>
+</Property>
+
+<Property name="AircraftHomeBuilt">
+<Type>%Library.String</Type>
+<Parameter name="MAXLEN" value="3"/>
+</Property>
+
+<Property name="SeatsFlightCrew">
+<Type>%Library.Integer</Type>
+</Property>
+
+<Property name="SeatsCabinCrew">
+<Type>%Library.Integer</Type>
+</Property>
+
+<Property name="SeatsPassengers">
+<Type>%Library.Integer</Type>
+</Property>
+
+<Property name="SeatsTotal">
+<Type>%Library.Integer</Type>
+</Property>
+
+<Property name="EngineCount">
+<Type>%Library.Integer</Type>
+</Property>
+
+<Property name="GearType">
+<Type>%Library.String</Type>
+<Parameter name="MAXLEN" value="4"/>
+</Property>
+
+<Property name="LastInspectionType">
+<Type>%Library.String</Type>
+<Parameter name="MAXLEN" value="50"/>
+</Property>
+
+<Property name="LastInspectionDate">
+<Type>%Library.TimeStamp</Type>
+</Property>
+
+<Property name="AirFrameHoursSinceLastInspection">
+<Type>%Library.String</Type>
+<Parameter name="MAXLEN" value="50"/>
+</Property>
+
+<Property name="AirFrameHours">
+<Type>%Library.String</Type>
+<Parameter name="MAXLEN" value="50"/>
+</Property>
+
+<Property name="Owner">
+<Type>%Library.String</Type>
+<Parameter name="MAXLEN" value="50"/>
+</Property>
+
+<Property name="OwnerState">
+<Type>%Library.String</Type>
+<Parameter name="MAXLEN" value="2"/>
+</Property>
+
+<Property name="OwnerCountry">
+<Type>%Library.String</Type>
+<Parameter name="MAXLEN" value="4"/>
+</Property>
+
+<Property name="OperatorIndividual">
+<Type>%Library.String</Type>
+<Parameter name="MAXLEN" value="1"/>
+</Property>
+
+<Property name="OperatorName">
+<Type>%Library.String</Type>
+<Parameter name="MAXLEN" value="50"/>
+</Property>
+
+<Property name="OperatorState">
+<Type>%Library.String</Type>
+<Parameter name="MAXLEN" value="2"/>
+</Property>
+
+<Property name="OperatorCountry">
+<Type>%Library.String</Type>
+<Parameter name="MAXLEN" value="4"/>
+</Property>
+
+<Property name="OperatorCode">
+<Type>%Library.String</Type>
+<Parameter name="MAXLEN" value="4"/>
+</Property>
+
+<Property name="OwnerCertified">
+<Type>%Library.String</Type>
+<Parameter name="MAXLEN" value="1"/>
+</Property>
+
+<Property name="OperatorCertificate">
+<Type>%Library.String</Type>
+<Parameter name="MAXLEN" value="4"/>
+</Property>
+
+<Property name="OperatorCertificateNum">
+<Type>%Library.String</Type>
+<Parameter name="MAXLEN" value="11"/>
+</Property>
+
+<Property name="OperationScheduled">
+<Type>%Library.String</Type>
+<Parameter name="MAXLEN" value="20"/>
+</Property>
+
+<Property name="OperationDomestic">
+<Type>%Library.String</Type>
+<Parameter name="MAXLEN" value="20"/>
+</Property>
+
+<Property name="OperationType">
+<Type>%Library.String</Type>
+<Parameter name="MAXLEN" value="20"/>
+</Property>
+
+<Property name="FlightType">
+<Type>%Library.String</Type>
+<Parameter name="MAXLEN" value="20"/>
+</Property>
+
+<Property name="SecondPilot">
+<Type>%Library.String</Type>
+<Parameter name="MAXLEN" value="1"/>
+</Property>
+
+<Property name="DepartureSameAsEvent">
+<Type>%Library.String</Type>
+<Parameter name="MAXLEN" value="1"/>
+</Property>
+
+<Property name="DepartureAirportId">
+<Type>%Library.String</Type>
+<Parameter name="MAXLEN" value="4"/>
+</Property>
+
+<Property name="DepartureCity">
+<Type>%Library.String</Type>
+<Parameter name="MAXLEN" value="50"/>
+</Property>
+
+<Property name="DepartureState">
+<Type>%Library.String</Type>
+<Parameter name="MAXLEN" value="2"/>
+</Property>
+
+<Property name="DepartureCountry">
+<Type>%Library.String</Type>
+<Parameter name="MAXLEN" value="3"/>
+</Property>
+
+<Property name="DepartureTime">
+<Type>%Library.Integer</Type>
+</Property>
+
+<Property name="DepartureTimeZone">
+<Type>%Library.String</Type>
+<Parameter name="MAXLEN" value="3"/>
+</Property>
+
+<Property name="DestinationSameAsLocal">
+<Type>%Library.String</Type>
+<Parameter name="MAXLEN" value="4"/>
+</Property>
+
+<Property name="DestinationAirportId">
+<Type>%Library.String</Type>
+<Parameter name="MAXLEN" value="4"/>
+</Property>
+
+<Property name="DestinationCity">
+<Type>%Library.String</Type>
+<Parameter name="MAXLEN" value="50"/>
+</Property>
+
+<Property name="DestinationState">
+<Type>%Library.String</Type>
+<Parameter name="MAXLEN" value="2"/>
+</Property>
+
+<Property name="DestinationCountry">
+<Type>%Library.String</Type>
+<Parameter name="MAXLEN" value="3"/>
+</Property>
+
+<Property name="FlightPhase">
+<Type>%Library.Integer</Type>
+</Property>
+
+<Property name="ReportedToICAO">
+<Type>%Library.String</Type>
+<Parameter name="MAXLEN" value="1"/>
+</Property>
+
+<Property name="EvacuationOccurred">
+<Type>%Library.String</Type>
+<Parameter name="MAXLEN" value="1"/>
+</Property>
+
+<Property name="AirFrameHoursSince">
+<Type>%Library.String</Type>
+<Parameter name="MAXLEN" value="4"/>
+</Property>
+
+<Property name="FlightSiteSeeing">
+<Type>%Library.String</Type>
+<Parameter name="MAXLEN" value="1"/>
+</Property>
+
+<Property name="FlightMedical">
+<Type>%Library.String</Type>
+<Parameter name="MAXLEN" value="1"/>
+</Property>
+
+<Property name="FlightMedicalType">
+<Type>%Library.String</Type>
+<Parameter name="MAXLEN" value="15"/>
+</Property>
+
+<Index name="PKINDEX">
+<PrimaryKey>1</PrimaryKey>
+<Properties>EventId,AircraftKey</Properties>
+<Unique>1</Unique>
+</Index>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>{%%PARENT}("Aircraft")</DataLocation>
+<DefaultData>AircraftDefaultData</DefaultData>
+<IdLocation>^Aviation.EventC("Aircraft")</IdLocation>
+<IndexLocation>^Aviation.AircraftI</IndexLocation>
+<StreamLocation>^Aviation.AircraftS</StreamLocation>
+<ExtentSize>100000</ExtentSize>
+<Data name="AircraftDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>EventId</Value>
+</Value>
+<Value name="3">
+<Value>AircraftKey</Value>
+</Value>
+<Value name="4">
+<Value>RegistrationNumber</Value>
+</Value>
+<Value name="5">
+<Value>Missing</Value>
+</Value>
+<Value name="6">
+<Value>FlightPlan</Value>
+</Value>
+<Value name="7">
+<Value>FlightPlanActivated</Value>
+</Value>
+<Value name="8">
+<Value>Damage</Value>
+</Value>
+<Value name="9">
+<Value>AccidentFire</Value>
+</Value>
+<Value name="10">
+<Value>AccidentExplosion</Value>
+</Value>
+<Value name="11">
+<Value>AircraftManufacturer</Value>
+</Value>
+<Value name="12">
+<Value>AircraftModel</Value>
+</Value>
+<Value name="13">
+<Value>AircraftSeries</Value>
+</Value>
+<Value name="14">
+<Value>AircraftSerialNo</Value>
+</Value>
+<Value name="15">
+<Value>AircraftCertMaxGrossWeight</Value>
+</Value>
+<Value name="16">
+<Value>AircraftCategory</Value>
+</Value>
+<Value name="17">
+<Value>AircraftRegistrationClass</Value>
+</Value>
+<Value name="18">
+<Value>AircraftHomeBuilt</Value>
+</Value>
+<Value name="19">
+<Value>SeatsFlightCrew</Value>
+</Value>
+<Value name="20">
+<Value>SeatsCabinCrew</Value>
+</Value>
+<Value name="21">
+<Value>SeatsPassengers</Value>
+</Value>
+<Value name="22">
+<Value>SeatsTotal</Value>
+</Value>
+<Value name="23">
+<Value>EngineCount</Value>
+</Value>
+<Value name="24">
+<Value>GearType</Value>
+</Value>
+<Value name="25">
+<Value>LastInspectionType</Value>
+</Value>
+<Value name="26">
+<Value>LastInspectionDate</Value>
+</Value>
+<Value name="27">
+<Value>AirFrameHoursSinceLastInspection</Value>
+</Value>
+<Value name="28">
+<Value>AirFrameHours</Value>
+</Value>
+<Value name="29">
+<Value>Owner</Value>
+</Value>
+<Value name="30">
+<Value>OwnerState</Value>
+</Value>
+<Value name="31">
+<Value>OwnerCountry</Value>
+</Value>
+<Value name="32">
+<Value>OperatorIndividual</Value>
+</Value>
+<Value name="33">
+<Value>OperatorName</Value>
+</Value>
+<Value name="34">
+<Value>OperatorState</Value>
+</Value>
+<Value name="35">
+<Value>OperatorCountry</Value>
+</Value>
+<Value name="36">
+<Value>OperatorCode</Value>
+</Value>
+<Value name="37">
+<Value>OwnerCertified</Value>
+</Value>
+<Value name="38">
+<Value>OperatorCertificate</Value>
+</Value>
+<Value name="39">
+<Value>OperatorCertificateNum</Value>
+</Value>
+<Value name="40">
+<Value>OperationScheduled</Value>
+</Value>
+<Value name="41">
+<Value>OperationDomestic</Value>
+</Value>
+<Value name="42">
+<Value>OperationType</Value>
+</Value>
+<Value name="43">
+<Value>FlightType</Value>
+</Value>
+<Value name="44">
+<Value>SecondPilot</Value>
+</Value>
+<Value name="45">
+<Value>DepartureSameAsEvent</Value>
+</Value>
+<Value name="46">
+<Value>DepartureAirportId</Value>
+</Value>
+<Value name="47">
+<Value>DepartureCity</Value>
+</Value>
+<Value name="48">
+<Value>DepartureState</Value>
+</Value>
+<Value name="49">
+<Value>DepartureCountry</Value>
+</Value>
+<Value name="50">
+<Value>DepartureTime</Value>
+</Value>
+<Value name="51">
+<Value>DepartureTimeZone</Value>
+</Value>
+<Value name="52">
+<Value>DestinationSameAsLocal</Value>
+</Value>
+<Value name="53">
+<Value>DestinationAirportId</Value>
+</Value>
+<Value name="54">
+<Value>DestinationCity</Value>
+</Value>
+<Value name="55">
+<Value>DestinationState</Value>
+</Value>
+<Value name="56">
+<Value>DestinationCountry</Value>
+</Value>
+<Value name="57">
+<Value>FlightPhase</Value>
+</Value>
+<Value name="58">
+<Value>ReportedToICAO</Value>
+</Value>
+<Value name="59">
+<Value>EvacuationOccurred</Value>
+</Value>
+<Value name="60">
+<Value>AirFrameHoursSince</Value>
+</Value>
+<Value name="61">
+<Value>FlightSiteSeeing</Value>
+</Value>
+<Value name="62">
+<Value>FlightMedical</Value>
+</Value>
+<Value name="63">
+<Value>FlightMedicalType</Value>
+</Value>
+<Value name="64">
+<Value>server</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+</Export>

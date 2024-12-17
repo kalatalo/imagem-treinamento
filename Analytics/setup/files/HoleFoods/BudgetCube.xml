@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2011.2 (Build 312U)" ts="2012-05-01 10:05:43">
+<Class name="HoleFoods.BudgetCube">
+<Description><![CDATA[
+This is a sample DeepSee data model.<br/>
+This represents budget values for the HoleFoods model.
+Refer to the <class>HoleFoods.BudgetCube</class> class for more details.]]></Description>
+<Super>%DeepSee.CubeDefinition</Super>
+<TimeChanged>62578,36234.107343</TimeChanged>
+<TimeCreated>61102,65541.990914</TimeCreated>
+<DependsOn>HoleFoods.Cube,HoleFoods.Transaction,HoleFoods.KPIAction</DependsOn>
+
+<Parameter name="DOMAIN">
+<Default>HOLEFOODS</Default>
+</Parameter>
+
+<XData name="Cube">
+<Description>
+This xml document defines the HoleFoods model.</Description>
+<XMLNamespace>http://www.intersystems.com/deepsee</XMLNamespace>
+<Data><![CDATA[
+<cube name="HoleFoodsBudget" 
+caption="HoleFoods Budget"
+defaultListing="Listing"
+defaultMember="[Product].[All Product]"
+nullReplacement="Missing Value"
+buildRestriction="Actual=0"
+actionClass="HoleFoods.KPIAction"
+sourceClass="HoleFoods.Transaction">
+
+<listing name="ListingX" sql="SELECT ID,UnitsSold,Outlet->City FROM $$$SOURCE WHERE $$$RESTRICT" />
+<listing name="Listing" fieldList="%ID,DateOfSale,Outlet->City,%EXTERNAL(Channel) Channel,Product->Name,UnitsSold,AmountOfSale,(Discount*100)||'%' Discount,Comment" orderBy="DateOfSale,%ID"/>
+<listing name="Listing By Date" fieldList="%ID,DateOfSale" orderBy="DateOfSale,%ID"/>
+<listing name="Listing By Product" fieldList="%ID,Product->Name" orderBy="Product->Name,%ID"/>
+
+<measure name="Target" sourceProperty="TargetAmount" aggregate="SUM" formatString="#,###.##"/>
+
+<dimension name="DateOfSale" sharesFrom="HoleFoods"/>
+<dimension name="Product" sharesFrom="HoleFoods"/>
+<dimension name="Outlet" sharesFrom="HoleFoods"/>
+
+</cube>
+]]></Data>
+</XData>
+</Class>
+</Export>

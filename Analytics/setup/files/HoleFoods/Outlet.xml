@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="24" zv="Cache for Windows (x86-64) 2011.1 (Build 351U)" ts="2011-01-03 11:39:49">
+<Class name="HoleFoods.Outlet">
+<Description>
+This represents a Sales Outlet for the HoleFoods demo.</Description>
+<Super>%Persistent</Super>
+<TimeChanged>62072,43501.813096</TimeChanged>
+<TimeCreated>61079,51385.591906</TimeCreated>
+
+<Property name="Country">
+<Description>
+Country in which this city is located.</Description>
+<Type>Country</Type>
+</Property>
+
+<Property name="City">
+<Description>
+City name of this location.</Description>
+<Type>%String</Type>
+<Parameter name="MAXLEN" value="100"/>
+</Property>
+
+<Property name="Population">
+<Description>
+Population of this city.</Description>
+<Type>%Integer</Type>
+<Parameter name="MINVAL" value="0"/>
+</Property>
+
+<Property name="Type">
+<Description>
+Type of outlet: "retail", "web", etc.</Description>
+<Type>%String</Type>
+<Parameter name="MAXLEN" value="50"/>
+</Property>
+
+<Property name="Latitude">
+<Description>
+Latitude of this location.</Description>
+<Type>%Double</Type>
+</Property>
+
+<Property name="Longitude">
+<Description>
+Longitude of this location.</Description>
+<Type>%Double</Type>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^HoleFoods.OutletD</DataLocation>
+<DefaultData>OutletDefaultData</DefaultData>
+<IdLocation>^HoleFoods.OutletD</IdLocation>
+<IndexLocation>^HoleFoods.OutletI</IndexLocation>
+<StreamLocation>^HoleFoods.OutletS</StreamLocation>
+<Data name="OutletDefaultData">
+<Structure>listnode</Structure>
+<Subscript/>
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>Country</Value>
+</Value>
+<Value name="3">
+<Value>City</Value>
+</Value>
+<Value name="4">
+<Value>Population</Value>
+</Value>
+<Value name="5">
+<Value>Type</Value>
+</Value>
+<Value name="6">
+<Value>Latitude</Value>
+</Value>
+<Value name="7">
+<Value>Longitude</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+</Export>

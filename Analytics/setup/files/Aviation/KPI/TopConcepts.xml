@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="Aviation.KPI.TopConcepts">
+<Super>%iKnow.DeepSee.GenericKPI</Super>
+<TimeCreated>62525,33361.511007</TimeCreated>
+
+<Parameter name="IKCUBENAME">
+<Description><![CDATA[
+ Override this parameter and <parameter>IKMEASURENAME</parameter> to specify the iKnow
+ domain linked to a particular iKnow measure for the KPI's query to access.]]></Description>
+<Type>%String</Type>
+<Default>AviationEvents</Default>
+</Parameter>
+
+<Parameter name="IKMEASURENAME">
+<Description><![CDATA[
+ Override this parameter and <parameter>IKCUBENAME</parameter> to specify the iKnow
+ domain linked to a particular iKnow measure for the KPI's query to access.]]></Description>
+<Type>%String</Type>
+<Default>Report</Default>
+</Parameter>
+
+<XData name="KPI">
+<Description>
+ This XData definition defines the KPI.</Description>
+<XMLNamespace>http://www.intersystems.com/deepsee/kpi</XMLNamespace>
+<Data><![CDATA[
+<kpi name="AviationTopConcepts" displayName="AviationEvents > Top Concepts" >
+<property name="resultNumber" disabled="true" />
+<property name="entUniId" disabled="true" />
+<property name="entity" />
+<property name="frequency" />
+<property name="spread" />
+</kpi>
+]]></Data>
+</XData>
+</Class>
+</Export>

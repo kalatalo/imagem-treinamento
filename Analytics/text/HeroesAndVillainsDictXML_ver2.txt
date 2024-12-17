@@ -1,0 +1,22 @@
+The xml below defines two matching dictionaries. It loads the details
+for the dictionaries from two external files: heroes.txt and villains.txt.
+Using Studio or Atelier paste the xml found below into the domain definition 
+after the closing data tag (</data>) and before the metadata tag (</metadata>)
+
+
+
+##################################################
+<matching>
+<external file="c:\Analytics\text\heroes.txt" headerRows="1" delimiter=",">
+<column role="dictionary name" fixedValue="Heroes" />
+<column role="item name" position="2" />
+<column role="item URI" position="2" />
+<column role="term" position="1" />
+</external>
+<external file="c:\Analytics\text\villains.txt" headerRows="1" delimiter=",">
+<column role="dictionary name" fixedValue="Villains" />
+<column role="item name" position="2" />
+<column role="item URI" position="2" />
+<column role="term" position="1" />
+</external>
+</matching>

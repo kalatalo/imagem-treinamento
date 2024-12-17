@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="HoleFoods.Country">
+<Description>
+This specifies the country within the HoleFoods demo.</Description>
+<Super>%Persistent</Super>
+<TimeCreated>61079,51385.591906</TimeCreated>
+
+<Property name="Region">
+<Description>
+Region in which this country is located.</Description>
+<Type>Region</Type>
+</Property>
+
+<Property name="Name">
+<Description>
+Name of this country.</Description>
+<Type>%String</Type>
+<Parameter name="MAXLEN" value="90"/>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^HoleFoods.CountryD</DataLocation>
+<DefaultData>CountryDefaultData</DefaultData>
+<IdLocation>^HoleFoods.CountryD</IdLocation>
+<IndexLocation>^HoleFoods.CountryI</IndexLocation>
+<StreamLocation>^HoleFoods.CountryS</StreamLocation>
+<Data name="CountryDefaultData">
+<Structure>listnode</Structure>
+<Subscript/>
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>Region</Value>
+</Value>
+<Value name="3">
+<Value>Name</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+</Export>

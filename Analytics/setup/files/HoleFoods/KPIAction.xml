@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="HoleFoods.KPIAction">
+<Description>
+KPI class used to supply Actions for the HOLEFOODS cube.
+This is a demonstration and does not actually do anything!</Description>
+<Super>%DeepSee.KPI</Super>
+<TimeCreated>61707,67436.040537</TimeCreated>
+
+<XData name="KPI">
+<Description>
+This XData definition defines the KPI.</Description>
+<XMLNamespace>http://www.intersystems.com/deepsee/kpi</XMLNamespace>
+<Data><![CDATA[
+<kpi
+xmlns="http://www.intersystems.com/deepsee/kpi"
+ name="Holefoods Actions">
+
+<action name="ActionA"/>
+<action name="ActionB"/>
+<action name="ActionC"/>
+</kpi>
+]]></Data>
+</XData>
+
+<Method name="%OnDashboardAction">
+<Description>
+This callback is invoked from a dashboard when an action defined by this dashboard is invoked.</Description>
+<ClassMethod>1</ClassMethod>
+<FormalSpec>pAction:%String,pContext:%ZEN.proxyObject</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	// pAction is the name of the action (as defined in the XML list).
+	// pContext contains information from the client
+	// and can be used to return information.
+
+	// value associated with current item in widget.
+	Set tSelectedValue = pContext.currValue
+
+	If (pAction="ActionA") {
+		// Go to a new page
+		Set pContext.command = "navigate:http://www.intersystems.com"
+	}
+
+	Quit $$$OK
+]]></Implementation>
+</Method>
+</Class>
+</Export>

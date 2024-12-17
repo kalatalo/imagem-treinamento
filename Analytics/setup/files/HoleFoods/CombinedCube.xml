@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2011.2 (Build 312U)" ts="2012-04-29 17:34:56">
+<Class name="HoleFoods.CombinedCube">
+<Description>
+Sample of a DeepSee compound cube.
+This combine the HoleFoods Sales data with the Holefoods budget data into one model.</Description>
+<ProcedureBlock>1</ProcedureBlock>
+<Super>%DeepSee.SubjectArea</Super>
+<TimeChanged>62575,55530.468355</TimeChanged>
+<TimeCreated>62469,37916.138526</TimeCreated>
+<DependsOn>HoleFoods.Cube,HoleFoods.BudgetCube</DependsOn>
+
+<Parameter name="DOMAIN">
+</Parameter>
+
+<XData name="SubjectArea">
+<Description>
+SubjectArea definition from Architect.</Description>
+<XMLNamespace>http://www.intersystems.com/deepsee/subjectarea</XMLNamespace>
+<Data><![CDATA[
+<subjectArea xmlns="http://www.intersystems.com/deepsee/subjectarea" name="HoleFoodsCombined" caption="HoleFoods Combined" disabled="false" baseCube="HoleFoods,HoleFoodsBudget">
+
+<calculatedMember dimension="Measures" name="Variance" valueExpression="ISNULL([Measures].[Amount Sold],0)-ISNULL([Measures].[Target],0)" formatString="#,##.##;(#,##.##)"/>
+
+</subjectArea>
+]]></Data>
+</XData>
+</Class>
+</Export>

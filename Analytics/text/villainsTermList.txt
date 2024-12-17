@@ -1,0 +1,16 @@
+%%NAME,Villains
+%%FIELDLIST,uri
+%%MODDATE,2019-10-28 17:51:33
+colonel kurtz,kurtz,uri:kurtz
+colonel walter e. kurtz,kurtz,uri:kurtz
+dark lord sauron,sauron,uri:sauron
+darth vader,vader,uri:vader
+kurtz,kurtz,uri:kurtz
+lord sauron,sauron,uri:sauron
+lord vader,vader,uri:vader
+lord voldemort,voldemort,uri:voldemort
+luke's father,vader,uri:vader
+sauron,sauron,uri:sauron
+voldemort,voldemort,uri:voldemort
+vader,vader,uri:vader
+

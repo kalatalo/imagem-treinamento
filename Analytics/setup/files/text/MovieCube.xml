@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="IRIS" version="26" zv="IRIS for Windows (x86-64) 2021.1 (Build 205U)" ts="2021-05-13 16:00:09">
+<Class name="Training.Analytics.MovieCube">
+<Description>
+</Description>
+<ProcedureBlock>1</ProcedureBlock>
+<Super>%DeepSee.CubeDefinition</Super>
+<TimeChanged>65877,56527.932223</TimeChanged>
+<TimeCreated>62718,33124.38927</TimeCreated>
+<DependsOn>Training.Analytics.Movie</DependsOn>
+
+<XData name="Cube">
+<Description>
+Cube definition from Architect.</Description>
+<XMLNamespace>http://www.intersystems.com/deepsee</XMLNamespace>
+<Data><![CDATA[
+<cube xmlns="http://www.intersystems.com/deepsee" name="Movie Cube" displayName="Movie Cube" disabled="false" abstract="false" sourceClass="Training.Analytics.Movie" namedFactNums="true" countMeasureName="%COUNT" bucketSize="8" bitmapChunkInMemory="false" precompute="0" disableListingGroups="false" enableSqlRestrict="false">
+  <dimension name="Director" disabled="false" hasAll="false" allCaption="All Director" allDisplayName="Director" type="data" hidden="false" showHierarchies="default">
+    <hierarchy name="H1" disabled="false" hidden="false">
+      <level name="Director" disabled="false" sourceProperty="Director" list="false" useDisplayValue="true" useAsFilter="true" hidden="false" factNumber="2">
+      </level>
+    </hierarchy>
+  </dimension>
+  <dimension name="Genre" disabled="false" hasAll="false" allCaption="All Genre" allDisplayName="Genre" type="data" hidden="false" showHierarchies="default">
+    <hierarchy name="H1" disabled="false" hidden="false">
+      <level name="Genre" disabled="false" sourceProperty="Genre" list="false" useDisplayValue="true" useAsFilter="true" hidden="false" factNumber="3">
+      </level>
+    </hierarchy>
+  </dimension>
+  <dimension name="ReleaseDate" disabled="false" hasAll="false" allCaption="All ReleaseDate" allDisplayName="ReleaseDate" sourceProperty="ReleaseDate" type="time" calendar="gregorian" hidden="false" showHierarchies="default">
+    <hierarchy name="H1" disabled="false" hidden="false">
+      <level name="Release Year" disabled="false" timeFunction="Year" list="false" useDisplayValue="true" useAsFilter="true" hidden="false" factNumber="4">
+      </level>
+      <level name="Release Month" disabled="false" timeFunction="MonthYear" list="false" useDisplayValue="true" useAsFilter="true" hidden="false" factNumber="5">
+      </level>
+      <level name="Release Day" disabled="false" timeFunction="DayMonthYear" list="false" useDisplayValue="true" useAsFilter="true" hidden="false" factNumber="6">
+      </level>
+    </hierarchy>
+  </dimension>
+  <dimension name="Name" disabled="false" hasAll="false" allCaption="All Name" allDisplayName="Name" type="data" hidden="false" showHierarchies="default">
+    <hierarchy name="H1" disabled="false" hidden="false">
+      <level name="Name" disabled="false" sourceProperty="Name" list="false" useDisplayValue="true" useAsFilter="true" hidden="false" factNumber="7">
+      </level>
+    </hierarchy>
+  </dimension>
+  <dimension name="Rating" disabled="false" hasAll="false" allCaption="All Rating" allDisplayName="Rating" type="data" hidden="false" showHierarchies="default">
+    <hierarchy name="H1" disabled="false" hidden="false">
+      <level name="Rating" disabled="false" sourceProperty="Rating" list="false" useDisplayValue="true" useAsFilter="true" hidden="false" factNumber="8">
+      </level>
+    </hierarchy>
+  </dimension>
+</cube>
+]]></Data>
+</XData>
+
+<Parameter name="DOMAIN"/>
+</Class>
+</Export>

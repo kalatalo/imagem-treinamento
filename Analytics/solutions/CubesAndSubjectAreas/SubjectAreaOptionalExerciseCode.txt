@@ -1,0 +1,12 @@
+
+Below is the code for the optional Subject Area exercise. Either paste the body of the method into the 
+the method stub that you have already created or paste the entire method into your subject area class. 
+
+
+ClassMethod %OnGetFilterSpec(pFilterSpec As %String) As %String
+{
+	Set category=$Get(^MyCategory)
+	Set pFilterSpec= "([Product].[H1].[Product Category].&["
+	_category_"],[CHANNEL].[H1].[CHANNEL NAME].&[Online])"
+	Return pFilterSpec 
+}

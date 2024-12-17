@@ -1,0 +1,7 @@
+
+
+Do $System.OBJ.Load("/opt/Analytics/setup/Installer.xml","ck")
+
+Do ##class(Training.Analytics.Installer).Install("/opt/Analytics")
+
+

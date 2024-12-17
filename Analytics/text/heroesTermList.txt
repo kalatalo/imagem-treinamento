@@ -1,0 +1,15 @@
+%%NAME,Heroes
+%%FIELDLIST,uri
+%%MODDATE,2019-10-28 18:03:50
+batman,batman,uri:batman
+dark knight,batman,uri:batman
+caped crusader,batman,uri:batman
+luke skywalker,luke,uri:luke
+luke,luke,uri:luke
+jedi knight luke skywalker,luke,uri:luke
+spock,spock,uri:spock
+commander spock,spock,uri:spock
+kirk,captain kirk,uri:captain kirk
+captain kirk,captain kirk,uri:captain kirk
+james kirk,captain kirk,uri:captain kirk
+james tiberius kirk,captain kirk,uri:captain kirk

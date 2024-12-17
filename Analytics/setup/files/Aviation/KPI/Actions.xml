@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="Aviation.KPI.Actions">
+<Description><![CDATA[
+Adds an action for <class>Aviation.EventCube</class> to display the full NTSB report for an
+Aviation Event fact record.]]></Description>
+<Super>%DeepSee.KPI</Super>
+<TimeCreated>62717,43395.999388</TimeCreated>
+
+<XData name="KPI">
+<Description>
+This XData definition defines the KPI.</Description>
+<XMLNamespace>http://www.intersystems.com/deepsee/kpi</XMLNamespace>
+<Data><![CDATA[
+<kpi xmlns="http://www.intersystems.com/deepsee/kpi" name="Aviation Actions">
+<action name="GoToReport" displayName="Open NTSB report" />
+</kpi>
+]]></Data>
+</XData>
+
+<Method name="%OnDashboardAction">
+<Description>
+This callback is invoked from a dashboard when an action defined by this dashboard is invoked.</Description>
+<ClassMethod>1</ClassMethod>
+<FormalSpec>pAction:%String,pContext:%ZEN.proxyObject</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	if (pAction="GoToReport") {
+		set pContext.command = "newWindow:Aviation.UI.NTSBLink.zen?ID="_pContext.valueList
+	}
+
+	quit $$$OK
+]]></Implementation>
+</Method>
+</Class>
+</Export>

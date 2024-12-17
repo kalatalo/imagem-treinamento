@@ -1,0 +1,637 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="IRIS" version="26" zv="IRIS for UNIX (Ubuntu Server LTS for x86-64 Containers) 2024.1 (Build 262U)" ts="2024-03-20 20:42:36">
+<Class name="Training.Analytics.Installer">
+<Description><![CDATA[
+
+This class imports code necessary for the Analytics course<br>
+
+Creates a namespace, several databases, and a webapp<br>
+
+It is platform independent.<br> 
+
+To Use:<br>
+
+1. Import and compile this class into any namespace<br>
+
+2. Call the <method>Install</method>, passing in the path to the Analytics folder ie:<br>
+
+	<EXAMPLE>
+
+Do ##class(Training.Analytics.Installer).Install("C:\Users\student\Desktop\Analytics\")
+
+</EXAMPLE>
+
+4. There will be import errors, that is okay so long as you don’t see: ***SETUP FAILED***]]></Description>
+<IncludeCode>%occInclude</IncludeCode>
+<TimeChanged>66919,74353.49497316</TimeChanged>
+<TimeCreated>65157,77620</TimeCreated>
+
+<XData name="Demos">
+<XMLNamespace>INSTALLER</XMLNamespace>
+<Data><![CDATA[
+<Manifest>
+
+
+
+	<Resource Name = "%DB_TRAINING"
+
+	Description = "Resource for Training DB"
+
+	Permission = ""/>
+
+		
+
+	<Namespace Name="TRAINING" Create="yes"
+
+	Code = "TRAINING" Data = "TRAINING" Ensemble = "0">
+
+		<Configuration>
+
+			<Database
+
+			Name = "TRAINING"
+
+			Dir = "${MGRDIR}training"
+
+			Create = "yes"
+
+			Resource="%DB_TRAINING"
+
+		    BlockSize="8192"
+
+		    PublicPermissions=""/>
+
+			<Database
+
+			Name = "DSCACHE"
+
+			Dir = "${MGRDIR}dscache"
+
+			Create = "yes"
+
+			Resource="%DB_TRAINING"
+
+		    BlockSize="8192"
+
+		    PublicPermissions=""/>
+
+			<Database
+
+			Name = "DSFACT"
+
+			Dir = "${MGRDIR}dsfact"
+
+			Create = "yes"
+
+			Resource="%DB_TRAINING"
+
+		    BlockSize="8192"
+
+		    PublicPermissions=""/>	
+
+		    
+
+		    <GlobalMapping Global = "DeepSee.Cache.*" From = "DSCACHE"/>
+
+		    	<GlobalMapping Global = "DeepSee.Dimension*" From = "DSFACT"/>
+
+		    	<GlobalMapping Global = "DeepSee.Fact*" From = "DSFACT"/>
+
+		    	<GlobalMapping Global = "DeepSee.JoinIndex" From = "DSFACT"/>
+
+		    	<GlobalMapping Global = "DeepSee.Index" From = "DSFACT"/> 	    	   		    
+
+		</Configuration>
+
+		
+
+		<CSPApplication
+
+		AuthenticationMethods="96"
+
+		CookiePath="/csp/training"
+
+		Url="/csp/training"
+
+		Directory="${rCSPDIR}training"
+
+		Grant="%DB_TRAINING"
+
+		Resource = "%DeepSee_Portal"
+
+		Recurse = "1"
+
+		GroupById = "%ISCMgtPortal"
+
+		DefaultTimeout = "3600"
+
+		IsNamespaceDefault = "1"
+
+		ServeFiles = "1"
+
+		ServeFilesTimeout = "3600"
+
+		UseSessionCookie = "1"
+
+		/>
+
+		
+
+		<Import File="${MYAPPDIR}InstallerUtils.xml" 
+
+		Flags="ck"
+
+		IgnoreErrors="0"
+
+		Recurse = "0"/>
+
+	   <Invoke Class="Training.Analytics.InstallerUtils" Method="EnableAnalytics" CheckStatus="true" Return="">
+
+	   		<Arg Value="training"/>
+
+	   </Invoke>	
+
+	   <Invoke Class="Training.Analytics.InstallerUtils" Method="DisableJournaling" CheckStatus="true">
+
+	   		<Arg Value="${MGRDIR}dscache"/>
+
+	   </Invoke>	   
+
+
+
+		<Import File="${AVIATIONDIR}" 
+
+		Flags="ck"
+
+		IgnoreErrors="1"
+
+		Recurse = "1"/>
+
+		
+
+		<Import File="${HOLEFOODSDIR}" 
+
+		Flags="ck"
+
+		IgnoreErrors="1"
+
+		Recurse = "1"/>
+		
+
+		<Import File="${MOVIECLS}" 
+
+		Flags="ck"
+
+		IgnoreErrors="0"/>
+		
+		<Invoke Class="Training.Analytics.Movie" Method="LoadData" CheckStatus="true" Return="">
+			<Arg Value = "${MOVIEDATA}"/>
+		</Invoke>
+		
+		<Import File="${MOVIECUBE}" 
+
+		IgnoreErrors="0"/>    
+		
+		
+
+		<Import File="${MYAPPDIR}" 
+
+		Flags="ck"
+
+		IgnoreErrors="1"/>
+
+			
+
+		<Invoke Class="%DeepSee.TermList" Method="%ImportCSV" CheckStatus="true" Return="RetVal">
+
+		<Arg Value="${TRMLISTDIR}HFRowAndColSpecs.csv"/>
+
+		<Arg Value="HFRowAndColSpecs"/>
+
+		</Invoke>
+
+		
+
+		<Invoke Class="HoleFoods.Utils" Method="BuildData" CheckStatus="false" Return="">
+
+		<Arg Value="100000"/>
+
+		<Arg Value="1"/>
+
+		<Arg Value="1"/>
+
+		</Invoke>
+		
+		<Invoke Class="Training.Analytics.OrderUtils" Method="Populate" CheckStatus="false" Return="">
+
+		</Invoke>
+
+
+
+	</Namespace>
+
+
+
+	 <ForEach Index="Image" Values="SKU-101.png,SKU-192.png,SKU-195.png,SKU-199.png,SKU-203.png,SKU-204.png,SKU-222.png,SKU-223.png,SKU-287.png,SKU-296.png,SKU-451.png,SKU-601.png,SKU-708.png,SKU-709.png,SKU-712.png,SKU-900.png,SKU-928.png">
+
+		 <CopyFile 
+
+		 Src="${SRCIMGDIR}${Image}"
+
+		 Target="${TARGIMGDIR}"
+
+		 IgnoreErrors="0"/>	
+
+	 </ForEach>
+
+	
+
+	 <CopyDir Src ="${SRCAMCHARTSDIR}" Target="${TARGAMCHARTSDIR}"/>
+
+	 
+
+	 <Role Name = "SQLpriv" Description = "Grants SQL Privileges for some HoleFoods and Aviation tables." 
+
+	 		Resources = "" />
+
+	 <Role Name = "Dashboard" Description = "Grants permissions appropriate to view dashboards in TRAINING" 
+
+	 		Resources = "%DB_TRAINING:RW,%DeepSee_Portal:U,%System_CallOut:U" />
+
+	 <Role Name = "Analyst" Description = "Grants permissions appropriate to create pivots and dashboards" 
+
+	 		Resources = "%DB_TRAINING:RW,%DeepSee_PortalEdit:U,%DeepSee_AnalyzerEdit:U,%DeepSee_ListingGroupEdit:U,%DeepSee_ListingGroupSQL:U" />
+
+	 <Role Name = "Modeler" Description = "Grants all permissions of Analyst plus those to create cubes" 
+
+	 		Resources = "%DeepSee_ArchitectEdit:U" RolesGranted = "Analyst" />
+
+	 <Var Name = "pwd" Value = "SYS"/>
+
+	 <User 
+
+	    Username="Doug"
+
+	    PasswordVar="pwd"
+
+	    Roles="Dashboard,SQLpriv"
+
+	    Fullname="Dashboard Doug"
+
+	    Namespace= "TRAINING"
+
+	    Routine=""
+
+	    ExpirationDate=""
+
+	    ChangePassword="0"
+
+	    Enabled="1"
+
+	    Comment=""/>
+
+	  <User 
+
+	    Username="Anne"
+
+	    PasswordVar="pwd"
+
+	    Roles="Analyst,SQLpriv"
+
+	    Fullname="Analyst Anne"
+
+	    Namespace= "TRAINING"
+
+	    Routine=""
+
+	    ExpirationDate=""
+
+	    ChangePassword="0"
+
+	    Enabled="1"
+
+	    Comment=""/>
+
+	  <User 
+
+	    Username="Max"
+
+	    PasswordVar="pwd"
+
+	    Roles="Modeler,SQLpriv"
+
+	    Fullname="Modeler Max"
+
+	    Namespace= "TRAINING"
+
+	    Routine=""
+
+	    ExpirationDate=""
+
+	    ChangePassword="0"
+
+	    Enabled="1"
+
+	    Comment=""/>
+
+	 <Namespace Name="Training" Create="no">
+
+	 	<Invoke Class="Training.Analytics.InstallerUtils" Method="GrantSQL" CheckStatus="true">
+
+	    	</Invoke>
+
+	 </Namespace>
+
+	 
+
+ </Manifest>
+]]></Data>
+</XData>
+
+<Method name="setup">
+<Description>
+
+This is a method generator whose code is generated by XGL.</Description>
+<Internal>1</Internal>
+<ClassMethod>1</ClassMethod>
+<CodeMode>objectgenerator</CodeMode>
+<FormalSpec><![CDATA[&pVars,pLogLevel:%Integer,pInstaller:%Installer.Installer,pLogger:%Installer.AbstractLogger]]></FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+
+	#; Let our XGL document generate code for this method. 
+
+	Quit ##class(%Installer.Manifest).%Generate(%compiledclass, %code, "Demos")
+]]></Implementation>
+</Method>
+
+<Method name="Install">
+<Description>
+
+Invoke the installer passing in some variables</Description>
+<ClassMethod>1</ClassMethod>
+<FormalSpec>AnalyticsDir:%String="/Analytics/"</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+
+ #dim tVars
+
+ #dim tStatus As %Status
+
+ #dim tLogLevel As %Integer = 1
+
+
+
+ Try {
+
+ 
+
+ //The CSP folder is uppercase in Windows and lowercase in Ubuntu
+
+ Set platform = $system.Version.GetOS()
+
+ if platform = "Windows" {
+
+ 	set cspCase = "CSP"
+
+ 	}
+
+ else {
+
+  	set cspCase = "csp"
+
+ 	}	
+
+
+
+ // Initialize any variables we want to pass to the installer
+
+ Set AnalyticsDirNormalized = ##Class(%Library.File).NormalizeDirectory(AnalyticsDir) //Need to make sure there's a trailing slash
+
+ set installdir = $System.Util.InstallDirectory()
+
+ set dir = AnalyticsDirNormalized_"setup/files"
+
+ set targetImageDir = installdir_"/"_cspCase_"/training/"
+
+ set srcImageDir=dir_"/images/"
+
+ set trmlistDir=dir_"/termlists/"
+
+ set holeFoodsDir = dir_"/HoleFoods/"
+
+ set aviationDir = dir_"/Aviation/"
+
+ //Adding amcharts directory to the mix
+
+ set srcAmchartsDir = dir_"/amcharts/"
+
+ set targetAmchartsDir=installdir_"/"_cspCase_"/broker/amcharts"
+ 
+ set movieCLS=dir_"/text/Movie.xml"
+
+ Set movieData = dir_"/text/moviedata.xml"
+ 
+ set movieCube=dir_"/text/MovieCube.xml"
+
+
+
+ // Initialize any variables we want to pass to the installer
+
+ set tVars("rCSPDIR") = ##class(%File).NormalizeDirectory(installdir_cspCase)
+
+ Set tVars("MYAPPDIR") = ##class(%Library.File).NormalizeDirectory(dir)
+
+ Set tVars("HOLEFOODSDIR") = ##class(%Library.File).NormalizeDirectory(holeFoodsDir)
+
+ Set tVars("AVIATIONDIR") = ##class(%Library.File).NormalizeDirectory(aviationDir)
+
+ Set tVars("TARGIMGDIR")=##class(%Library.File).NormalizeDirectory(targetImageDir)
+
+ Set tVars("SRCIMGDIR")=##class(%Library.File).NormalizeDirectory(srcImageDir)
+
+ Set tVars("TRMLISTDIR")=##class(%Library.File).NormalizeDirectory(trmlistDir)
+
+ Set tVars("SRCAMCHARTSDIR")=##class(%Library.File).NormalizeDirectory(srcAmchartsDir)
+
+ Set tVars("TARGAMCHARTSDIR")=##class(%Library.File).NormalizeDirectory(targetAmchartsDir)
+ 
+ Set tVars("MOVIECLS")=##class(%Library.File).NormalizeFilename(movieCLS)
+  
+ Set tVars("MOVIECUBE")=##class(%Library.File).NormalizeFilename(movieCube)
+
+ Set tVars("MOVIEDATA")=##class(%Library.File).NormalizeFilename(movieData)
+
+ Set majorVer=$system.Version.GetMajor()
+ set minorVer=$system.Version.GetMinor()
+ if (majorVer=2020) && (minorVer=1) {
+	set irislibdir=installdir_"/mgr/irislib/"
+	set irisdb=##class(SYS.Database).%OpenId(irislibdir)
+	set irisdb.ReadOnly=0
+	do irisdb.%Save()
+ 	set patchFile=AnalyticsDirNormalized_"setup/Patch20201.xml"
+	do $system.OBJ.Load(patchFile,"ck")
+	set irisdb.ReadOnly=1
+	do irisdb.%Save()
+ }
+
+ 
+
+ // Invoke the installer
+
+ Set tStatus = ..setup(.tVars,tLogLevel)
+
+ $$$ThrowOnError(tStatus)
+
+ Return $$$OK
+
+  }
+
+  Catch ex {
+
+ Write !,!, "***SETUP FAILED***" 
+
+ Write !, ex.DisplayString()
+
+ }
+]]></Implementation>
+</Method>
+
+<Method name="Uninstall">
+<ClassMethod>1</ClassMethod>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+
+ #Include %syPrompt
+
+ Try {
+
+ 	 NEW $NAMESPACE
+
+ 	 Set $NAMESPACE = "%SYS"
+
+ 	 Set prompt = "Are you sure you want to delete the TRAINING namespace, all associated databases, and the Users created by the analytics installer?"
+
+ 	 Do ##class(%Prompt).GetYesNo(prompt,.Confirm,$$$DisableHelpCharMask)
+
+ 	 if Confirm = 0 {
+
+ 	 	Set st = $$$ERROR($$$GeneralError,"User cancelled operation. No changes made.")
+
+ 	 	$$$ThrowStatus(st)
+
+ 	 	}	
+
+ 	 
+
+ 	 Do ##class(Config.Namespaces).Delete("TRAINING")
+
+ 	 
+
+ 	 set installdir = $system.Util.InstallDirectory()
+
+ 	 
+
+ 	 Set dir = ##class(%File).NormalizeDirectory(installdir_"mgr/training")
+
+	 Set db = ##class(SYS.Database).%OpenId(dir,,.st)
+
+	 if st {
+
+		 Do db.Mount()
+
+		 Do db.Delete()
+
+		 }
+
+	 Do ##class(Config.Databases).Delete("TRAINING")
+
+	 
+
+	 Set dir = ##class(%File).NormalizeDirectory(installdir_"mgr/dsfact")
+
+	 Set db = ##class(SYS.Database).%OpenId(dir,,.st)
+
+	 if st {	 
+
+		 Do db.Mount()
+
+		 Do db.Delete()
+
+		 }
+
+	 Do ##class(Config.Databases).Delete("DSFACT")
+
+	 
+
+	 Set dir = ##class(%File).NormalizeDirectory(installdir_"mgr/dscache")
+
+	 Set db = ##class(SYS.Database).%OpenId(dir,,.st)
+
+	 if st {	 
+
+		 Do db.Mount()
+
+		 Do db.Delete()
+
+		 }
+
+	 Do ##class(Config.Databases).Delete("DSCACHE")
+
+	 
+
+	 #SQLCompile Mode=Deferred
+
+	
+
+	 &SQL(Delete from Security.Users where id = 'doug' or id = 'anne' or id = 'max')
+
+	 &SQL(Delete from Security.Roles where id = 'analyst' or id = 'architect' or id = 'dashboard' or id = 'modeler'or id = 'sqlpriv')
+
+	 &SQL(Delete from Security.Resources where id = '%db_training')
+
+
+
+	 Set platform = $system.Version.GetOS()
+
+	 if platform = "Windows" {
+
+	 	set cspCase = "CSP"
+
+	 	}
+
+	 else {
+
+	  	set cspCase = "csp"
+
+	 	}	
+
+	 set targetImageDir = installdir_cspCase_"/training/"
+
+	 Set targetAmchartsDir=installdir_cspCase_"/broker/amcharts"
+
+	 Set NormDir = ##class(%File).NormalizeDirectory(targetImageDir)
+
+	 For image = "SKU-101.png","SKU-192.png","SKU-195.png","SKU-199.png","SKU-203.png","SKU-204.png","SKU-222.png","SKU-223.png","SKU-287.png","SKU-296.png","SKU-451.png","SKU-601.png","SKU-708.png","SKU-709.png","SKU-712.png","SKU-900.png","SKU-928.png" {
+
+		 Set file = NormDir_image
+
+		 Do ##class(%File).Delete(file)
+
+		 }
+
+	 Do ##class(%File).RemoveDirectoryTree(##class(%File).NormalizeDirectory(targetAmchartsDir))
+
+	 Return $$$OK
+
+ }
+
+ Catch ex {
+
+ 	Write ex.DisplayString()
+
+ }
+]]></Implementation>
+</Method>
+</Class>
+</Export>
